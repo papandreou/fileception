@@ -1,0 +1,15 @@
+{
+  "name": "fileception",
+  "version": "0.1.0",
+  "description": "Mock FS module",
+  "main": "lib/fileception.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Andreas Lind <andreas@one.com>",
+  "license": "BSD-3-Clause",
+  "dependencies": {
+    "unexpected": "unexpectedjs/unexpected#feature/exposeNotifyPendingPromise",
+    "unexpected-fs": "2.6.0"
+  }
+}
