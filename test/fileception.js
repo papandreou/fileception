@@ -46,4 +46,17 @@ describe('fileception', () => {
             expect(spy, 'was called once');
         });
     });
+
+    describe('when no function is passed', function () {
+        it('adds the mocks', function () {
+            fileception({'/foo': { 'bar.txt': 'quux'}});
+            expect(fs.readFileSync('/foo/bar.txt', 'utf-8'), 'to equal', 'quux');
+        });
+
+        // Adding another test here is the easiest way to check that the mocks
+        // were indeed removed by fileception's afterEach block:
+        it('... and removes them after the test', function () {
+            expect(() => fs.readFileSync('/foo/bar.txt'), 'to throw', /ENOENT/);
+        });
+    });
 });
