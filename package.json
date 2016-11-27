@@ -9,7 +9,8 @@
   "author": "Andreas Lind <andreas@one.com>",
   "license": "BSD-3-Clause",
   "dependencies": {
-    "unexpected": "unexpectedjs/unexpected#feature/exposeNotifyPendingPromise",
-    "unexpected-fs": "2.6.0"
+    "lodash": "4.5.1",
+    "mock-fs": "3.12.1",
+    "mountfs": "0.4.1"
   }
 }
