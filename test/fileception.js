@@ -1,9 +1,10 @@
 const fileception = require('../lib/fileception');
-const expect = require('unexpected');
+const expect = require('unexpected').clone().use(require('unexpected-sinon'));
 const fs = require('fs');
+const sinon = require('sinon');
 
 describe('fileception', () => {
-    describe('when passed a function', () => {
+    describe('when passed a function as the second parameter', () => {
         describe('that returns a promise', () => {
             it('should remove the mock after the promise has been resolved', () => {
                 return fileception({'/foo': { 'bar.txt': 'quux'}}, () => {
@@ -34,6 +35,15 @@ describe('fileception', () => {
 
                 expect(() => fs.readFileSync('/foo/bar.txt'), 'to throw', /ENOENT/);
             });
+        });
+    });
+
+
+    describe('when passed a function as the first parameter', () => {
+        it('is used as a promise factory (and no mocks are installed)', () => {
+            var spy = sinon.spy();
+            fileception(spy);
+            expect(spy, 'was called once');
         });
     });
 });
