@@ -46,6 +46,21 @@ describe('fileception', () => {
                     });
                 });
             });
+
+            it('allows adding more mocks', () => {
+                return fileception({'/foo': { 'bar.txt': 'quux'}}, () => {
+                    return fileception({'/bar': { 'baz.txt': 'blah' }}, () => {
+                        expect(fs.readFileSync('/foo/bar.txt', 'utf-8'), 'to equal', 'quux');
+                        expect(fs.readFileSync('/bar/baz.txt', 'utf-8'), 'to equal', 'blah');
+                    }).then(() => {
+                        expect(fs.readFileSync('/foo/bar.txt', 'utf-8'), 'to equal', 'quux');
+                        expect(() => fs.readFileSync('/bar/baz.txt'), 'to throw', /ENOENT/);
+                    });
+                }).then(() => {
+                    expect(() => fs.readFileSync('/foo/bar.txt'), 'to throw', /ENOENT/);
+                    expect(() => fs.readFileSync('/bar/baz.txt'), 'to throw', /ENOENT/);
+                });
+            });
         });
     });
 
