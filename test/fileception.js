@@ -36,6 +36,17 @@ describe('fileception', () => {
                 expect(() => fs.readFileSync('/foo/bar.txt'), 'to throw', /ENOENT/);
             });
         });
+
+        describe('that calls fileception again', () => {
+            it('allows adding more mocks', () => {
+                return fileception({'/foo': { 'bar.txt': 'quux'}}, () => {
+                    return fileception({'/bar': { 'baz.txt': 'blah' }}, () => {
+                        expect(fs.readFileSync('/foo/bar.txt', 'utf-8'), 'to equal', 'quux');
+                        expect(fs.readFileSync('/bar/baz.txt', 'utf-8'), 'to equal', 'blah');
+                    });
+                });
+            });
+        });
     });
 
 
@@ -57,6 +68,32 @@ describe('fileception', () => {
         // were indeed removed by fileception's afterEach block:
         it('... and removes them after the test', function () {
             expect(() => fs.readFileSync('/foo/bar.txt'), 'to throw', /ENOENT/);
+        });
+
+        describe('when the fileception function is called multiple times', function () {
+            it('allows adding more mocks to an already mocked out directory', function () {
+                fileception({'/foo': { 'bar.txt': 'quux'}});
+                fileception({'/foo': { 'baz.txt': 'blah'}});
+                expect(fs.readFileSync('/foo/bar.txt', 'utf-8'), 'to equal', 'quux');
+                expect(fs.readFileSync('/foo/baz.txt', 'utf-8'), 'to equal', 'blah');
+            });
+
+            it('... and removes them after the test', function () {
+                expect(() => fs.readFileSync('/foo/bar.txt'), 'to throw', /ENOENT/);
+                expect(() => fs.readFileSync('/foo/baz.txt'), 'to throw', /ENOENT/);
+            });
+
+            it('allows adding more mocked out directories', function () {
+                fileception({'/foo': { 'bar.txt': 'quux'}});
+                fileception({'/bar': { 'baz.txt': 'blah'}});
+                expect(fs.readFileSync('/foo/bar.txt', 'utf-8'), 'to equal', 'quux');
+                expect(fs.readFileSync('/bar/baz.txt', 'utf-8'), 'to equal', 'blah');
+            });
+
+            it('... and removes them after the test', function () {
+                expect(() => fs.readFileSync('/foo/bar.txt'), 'to throw', /ENOENT/);
+                expect(() => fs.readFileSync('/bar/baz.txt'), 'to throw', /ENOENT/);
+            });
         });
     });
 });
