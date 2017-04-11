@@ -1,6 +1,7 @@
 const fileception = require('../lib/fileception');
 const expect = require('unexpected').clone().use(require('unexpected-sinon'));
 const fs = require('fs');
+const pathModule = require('path');
 const sinon = require('sinon');
 
 describe('fileception', () => {
@@ -111,4 +112,9 @@ describe('fileception', () => {
             });
         });
     });
+
+    it('should not shadow files in CWD', function () {
+        fileception({'/foo': { 'bar.txt': 'quux'}});
+        expect(fs.readFileSync(pathModule.resolve(__dirname, '..', 'package.json'), 'utf-8'), 'to contain', '"version"');
+    })
 });
