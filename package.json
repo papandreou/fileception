@@ -13,7 +13,7 @@
   "license": "BSD-3-Clause",
   "dependencies": {
     "lodash": "4.5.1",
-    "mock-fs": "3.12.1",
+    "mock-fs-papandreou": "3.12.1-patch1",
     "mountfs": "0.5.0"
   },
   "devDependencies": {
