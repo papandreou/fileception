@@ -116,5 +116,5 @@ describe('fileception', () => {
     it('should not shadow files in CWD', function () {
         fileception({'/foo': { 'bar.txt': 'quux'}});
         expect(fs.readFileSync(pathModule.resolve(__dirname, '..', 'package.json'), 'utf-8'), 'to contain', '"version"');
-    })
+    });
 });
