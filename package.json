@@ -9,7 +9,7 @@
     "coverage": "nyc --reporter=lcov --reporter=text --all -- mocha && echo google-chrome coverage/lcov-report/index.html",
     "travis": "npm run lint && npm run coverage"
   },
-  "author": "Andreas Lind <andreas@one.com>",
+  "author": "Andreas Lind <andreaslindpetersen@gmail.com>",
   "license": "BSD-3-Clause",
   "dependencies": {
     "lodash": "4.5.1",
