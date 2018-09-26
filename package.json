@@ -24,7 +24,7 @@
     "nyc": "^10.0.0",
     "sinon": "6.3.4",
     "unexpected": "10.20.0",
-    "unexpected-sinon": "10.5.0"
+    "unexpected-sinon": "10.10.1"
   },
   "nyc": {
     "include": [
