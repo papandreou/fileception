@@ -23,7 +23,7 @@
     "mocha": "^5.2.0",
     "nyc": "^10.0.0",
     "sinon": "6.3.4",
-    "unexpected": "10.20.0",
+    "unexpected": "10.39.0",
     "unexpected-sinon": "10.10.1"
   },
   "nyc": {
